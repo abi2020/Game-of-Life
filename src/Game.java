@@ -9,6 +9,7 @@ public class Game {
         //printBoard(board);
         char[][] board2 = createBoard2(board);
         nextIteration(board, board2, board.length, board[0].length);
+        System.out.println();
 
     }
 
@@ -70,10 +71,45 @@ public class Game {
     }
 
     public static void doCell(char[][] board, char[][] board2, int rowIndex, int colIndex) {
-        System.out.print(rowIndex + " " + colIndex + "\n");
+        //System.out.print(rowIndex + " " + colIndex + "\n");
+        System.out.println(northWest(board, rowIndex, colIndex));
+        //board2[rowIndex][colIndex] = '-'; //if dead in next iteration
+        //board2[rowIndex][colIndex] = 'X'; //if alive in next iteration
 
-        board2[rowIndex][colIndex] = '-'; //if dead in next iteration
-        board2[rowIndex][colIndex] = 'X'; //if alive in next iteration
+    }
 
+    public static int northWest(char[][] board, int rowIndex, int colIndex) {
+        int lastRow = board.length - 1;
+        int lastCol = board[0].length - 1;
+        //checks upper left position
+        if(rowIndex == 0 & colIndex == 0) {
+            if(board[lastRow][lastCol] == 'X') {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        else if(rowIndex == 0) {
+            if(board[lastRow][colIndex-1] == 'X'){
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        else if(colIndex == 0) {
+            if(board[rowIndex-1][lastCol] == 'X') {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        else if(board[rowIndex - 1][colIndex-1] == 'X') {
+            return 1;
+        }
+        else {
+            return 0;
+        }
     }
 }
