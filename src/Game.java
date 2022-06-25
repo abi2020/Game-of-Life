@@ -1,15 +1,23 @@
+/**
+Game Of Life
+@author Aishani Mohaptra
+@author Abishek Siva
+*/
+
 import java.io.*;
 import java.util.*;
 
 
 public class Game {
     public static void main(String[] args) {
-        File text = new File("/Users/aishanim/Desktop/Game-of-Life/small.txt");
+        File text = new File("/Users/abisheksiva/Desktop/Game-of-Life/test_files/shek.txt");
         char[][] board = createBoard(text);
-        //printBoard(board);
-        char[][] board2 = createBoard2(board);
-        nextIteration(board, board2, board.length, board[0].length);
+        printBoard(board);
         System.out.println();
+        char[][] board2 = createBoard2(board);
+        System.out.println(west(board, 1, 3));
+        //nextIteration(board, board2, board.length, board[0].length);
+        //System.out.println();
 
     }
 
@@ -71,11 +79,89 @@ public class Game {
     }
 
     public static void doCell(char[][] board, char[][] board2, int rowIndex, int colIndex) {
-        //System.out.print(rowIndex + " " + colIndex + "\n");
-        System.out.println(northWest(board, rowIndex, colIndex));
         //board2[rowIndex][colIndex] = '-'; //if dead in next iteration
         //board2[rowIndex][colIndex] = 'X'; //if alive in next iteration
+        System.out.println();
+    }
 
+    public static int north(char[][] board, int rowIndex, int colIndex) {
+        int lastRow = board.length - 1;
+        if(rowIndex == 0) {
+            if(board[lastRow][colIndex] == 'X') {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        else {
+            if(board[rowIndex - 1][colIndex] == 'X') {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+    }
+
+    public static int south(char[][]board, int rowIndex, int colIndex) {
+        int lastRow = board.length - 1;
+        if(rowIndex == lastRow) {
+            if(board[0][colIndex] == 'X') {
+                return 1;
+            }
+            else {
+              return 0;
+            }
+        }
+        else {
+            if(board[rowIndex + 1][colIndex] == 'X') {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+    }
+
+    public static int west(char[][] board, int rowIndex, int colIndex) {
+        int rightCol = board[0].length - 1;
+        if(colIndex == 0) {
+            if(board[rowIndex][rightCol] == 'X') {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        else {
+            if(board[rowIndex][colIndex - 1] == 'X') {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+    }
+
+    public static int east(char[][] board, int rowIndex, int colIndex) {
+        int rightCol = board[0].length - 1;
+        if(rightCol == colIndex) {
+            if(board[rowIndex][0] == 'X') {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        else {
+            if(board[rowIndex][colIndex + 1] == 'X') {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
     }
 
     public static int northWest(char[][] board, int rowIndex, int colIndex) {
