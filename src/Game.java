@@ -10,13 +10,16 @@ import java.util.*;
 
 public class Game {
     public static void main(String[] args) {
-        File text = new File("/Users/abisheksiva/Desktop/Game-of-Life/test_files/shek.txt");
+        //File text = new File("/Users/abisheksiva/Desktop/Game-of-Life/test_files/shek.txt");
+        File text = new File("/Users/aishanim/Desktop/Game-of-Life/test_files/3_line.txt");
         char[][] board = createBoard(text);
         printBoard(board);
         System.out.println();
         char[][] board2 = createBoard2(board);
-        System.out.println(west(board, 1, 3));
-        //nextIteration(board, board2, board.length, board[0].length);
+        //System.out.print(northWest(board, 0 ,0));
+        //doCell(board, board2, 0, 0);
+        nextIteration(board, board2, board.length, board[0].length);
+        printBoard(board2);
         //System.out.println();
 
     }
@@ -81,7 +84,28 @@ public class Game {
     public static void doCell(char[][] board, char[][] board2, int rowIndex, int colIndex) {
         //board2[rowIndex][colIndex] = '-'; //if dead in next iteration
         //board2[rowIndex][colIndex] = 'X'; //if alive in next iteration
-        System.out.println();
+        //System.out.println();
+        int sum = 0;
+        sum += north(board, rowIndex, colIndex);
+        //System.out.println("north "+ sum);
+        sum += northEast(board, rowIndex, colIndex);
+        //System.out.println("northeast "+sum);
+        sum += east(board, rowIndex, colIndex);
+        //System.out.println("east "+sum);
+        sum += southEast(board, rowIndex, colIndex);
+        //System.out.println("southeast "+sum);
+        sum += south(board, rowIndex, colIndex);
+        //System.out.println("south "+sum);
+        sum += southWest(board, rowIndex, colIndex);
+        //System.out.println("southwest "+sum);
+        sum += west(board, rowIndex, colIndex);
+        //System.out.println("west "+sum);
+        sum += northWest(board, rowIndex, colIndex);
+        //System.out.println("northwest "+sum);
+
+        if(sum == 2 | sum == 3) {
+            board2[rowIndex][colIndex] = 'X';
+        }
     }
 
     public static int north(char[][] board, int rowIndex, int colIndex) {
@@ -198,4 +222,108 @@ public class Game {
             return 0;
         }
     }
-}
+
+
+    public static int northEast(char[][] board, int rowIndex, int colIndex) {
+        int lastRow = board.length - 1;
+        int lastCol = board[0].length - 1;
+
+        if(rowIndex == 0 & colIndex == lastCol) {
+            if(board[lastRow][0] == 'X') {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        else if(rowIndex == 0) {
+            if(board[rowIndex][colIndex + 1] == 'X') {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        else if(colIndex == lastCol) {
+            if(board[rowIndex - 1][0] == 'X') {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        else if(board[rowIndex - 1][colIndex + 1] == 'X') {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
+
+    public static int southEast(char[][] board, int rowIndex, int colIndex) {
+        int lastRow = board.length - 1;
+        int lastCol = board[0].length - 1;
+
+        if(rowIndex == lastRow & colIndex == lastCol) {
+            if(board[0][0] == 'X') {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        else if(rowIndex == lastRow) {
+            if(board[0][colIndex + 1] == 'X') {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        else if(colIndex == lastCol) {
+            if(board[rowIndex + 1][0] == 'X') {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        else if(board[rowIndex + 1][colIndex + 1] == 'X') {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    public static int southWest(char[][] board, int rowIndex, int colIndex) {
+        int lastRow = board.length - 1;
+        int lastCol = board[0].length - 1;
+
+        if(rowIndex == lastRow & colIndex == 0) {
+            if(board[0][lastCol] == 'X') {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        else if(rowIndex == lastRow) {
+            if(board[0][colIndex - 1] == 'X') {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        else if(colIndex == 0) {
+            if(board[rowIndex + 1][lastCol] == 'X') {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        else if(board[rowIndex + 1][colIndex - 1] == 'X') {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+
+    }
