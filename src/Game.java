@@ -10,18 +10,35 @@ import java.util.*;
 
 public class Game {
     public static void main(String[] args) {
-        File text = new File("/Users/abisheksiva/Desktop/Game-of-Life/test_files/wrap_left_line.txt");
-        //File text = new File("/Users/abisheksiva/Desktop/Game-of-Life/test_files/3_line.txt");
+        //File text = new File("/Users/abisheksiva/Desktop/Game-of-Life/test_files/wrap_left_line.txt");
+        File text = new File("/Users/aishanim/Desktop/Game-of-Life/test_files/3_square_filled.txt");
         char[][] board = createBoard(text);
         printBoard(board);
         System.out.println();
         char[][] board2 = createBoard2(board);
+        char[][] emptyBoard = createBoard2(board);
         //System.out.print(northWest(board, 0 ,0));
         //doCell(board, board2, 5, 4);
-        nextIteration(board, board2, board.length, board[0].length);
-        printBoard(board2);
+//        nextIteration(board, board2, board.length, board[0].length);
+//        printBoard(board2);
         //System.out.println();
+        int iter = 4;
+        int counter = 1;
+        while(counter <= iter) {
+            System.out.println(counter);
+            nextIteration(board, board2, board.length, board[0].length);
+            printBoard(board2);
+            board = board2;
+            board2 = createBoard2(board2);
+            counter++;
+        }
 
+    }
+
+    public static void clearBoard(char[][] board) {
+        for(char[] i : board) {
+            Arrays.fill(i, '-');
+        }
     }
 
     public static char[][] createBoard(File fp) {
